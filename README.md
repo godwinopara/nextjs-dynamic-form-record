@@ -16,14 +16,14 @@ A React + TypeScript application for managing and filtering records. Features in
 
 ## 🖼️ Screenshots
 
-- **Homepage / Dashboard**  
-  > [Add screenshot here]
+- **Homepage**  
+  > [./public/homepage.png]
 
-- **Filter Records by Date**  
-  > [Add screenshot here]
+- **Display Dynamic Form**  
+  > [./public/form-number.png]
 
 - **Export to Excel Button**  
-  > [Add screenshot here]
+  > [./public/excel.png]
 
 ---
 
