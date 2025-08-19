@@ -13,6 +13,11 @@ A React + TypeScript application for managing and filtering records. Features in
 - Responsive table view  
 
 ---
+## 🚀 Live Demo
+
+[Live Demo](https://nextjs-dynamic-form-record.vercel.app/)
+
+---
 
 ## 🖼️ Screenshots
 
