@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Records Dashboard
 
-## Getting Started
+A React + TypeScript application for managing and filtering records. Features include date filtering, profile picture upload, and exporting filtered records to **Excel (.xlsx)** using [SheetJS](https://github.com/SheetJS/sheetjs).
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Add and view records  
+- Upload profile picture (stored as `File`)  
+- Filter records by date range  
+- Export filtered records to **Excel (.xlsx)**  
+- Responsive table view  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🖼️ Screenshots
 
-## Learn More
+- **Homepage / Dashboard**  
+  > [Add screenshot here]
 
-To learn more about Next.js, take a look at the following resources:
+- **Filter Records by Date**  
+  > [Add screenshot here]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Export to Excel Button**  
+  > [Add screenshot here]
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚙️ Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- React 18  
+- TypeScript  
+- Tailwind CSS
+- [Shadcn](https://ui.shadcn.com/) for customized components  
+- [React Hot Toast](https://react-hot-toast.com) for toasts notification
+- [React Icons](https://react-icons.github.io/react-icons/) for icons
+- [Formik](https://formik.org/) for forms
+- [Yup](https://github.com/jquense/yup) for form validation
+- [TanStack Table](https://tanstack.com/table) for data tables  
+- [SheetJS (xlsx)](https://github.com/SheetJS/sheetjs) for Excel export  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🔧 Installation & Setup
+
+1. **Clone the repository**
+
+   ```bash
+    git clone https://github.com/your-username/records-dashboard.git
+    cd records-dashboard
+    ```
+2. **Install Dependencies** 
+
+    ```bash
+    npm install
+    or 
+    yarn install
+    ```
+3. **Start Development Server** 
+
+    ```bash
+    npm run dev
+
+    ```
+    Open http://localhost:3000 in your browser.
+
+## 📝 Usage
+
+1. Input the number of form you want to add records with
+2. Add a new record with FullName, Amount, Phone Number, and Profie Picture.  
+3. Use the date filter and search filter to narrow records.  
+4. Click "Export to Excel" to download filtered records.  
