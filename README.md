@@ -17,13 +17,13 @@ A React + TypeScript application for managing and filtering records. Features in
 ## 🖼️ Screenshots
 
 - **Homepage**  
-  > [./public/homepage.png]
+![Homepage](./public/homepage.png)
 
 - **Display Dynamic Form**  
-  > [./public/form-number.png]
+![Dynamic Form](./public/form-number.png)
 
-- **Export to Excel Button**  
-  > [./public/excel.png]
+- **Export to Excel Sample Image**  
+![Exported Sample](./public/excel.png)
 
 ---
 
