@@ -74,8 +74,8 @@ export function DataTable<TData extends IRecords, TValue>({
       {/* ============== FILTERS ============= */}
       <CardHeader>
         {/* Header with title, record count, and export button */}
-        <div className="flex justify-between items-center">
-          <div>
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+          <div className="mb-4 lg:mb-0">
             <CardTitle>Form Records</CardTitle>
             {/* Show filtered count vs total count */}
             <CardDescription>
