@@ -1,14 +1,11 @@
 "use client";
 
-import { IRecords } from "@/app/page";
+import { IRecords } from "@/types/record";
+import { normalizeDate } from "@/utils/normalize-date";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
-const normalize = (date: Date) => {
-  const copy = new Date(date);
-  copy.setHours(0, 0, 0, 0);
-  return copy.getTime();
-};
+
 
 export const columns: ColumnDef<IRecords>[] = [
   {
@@ -33,7 +30,7 @@ export const columns: ColumnDef<IRecords>[] = [
         <Image
           src={URL.createObjectURL(profilePicture)}
           alt="Thumbnail"
-          className="object-center object-cover py-3 flex items-center justify-center  rounded"
+          className="w-10 h-10 rounded-full object-cover border"
           height={20}
           width={20}
         />
@@ -52,8 +49,8 @@ export const columns: ColumnDef<IRecords>[] = [
       const { from, to } = value || {};
       if (!from || !to) return true;
 
-      const day = normalize(date)
-      return day >= normalize(from) && day <= normalize(to);
+      const day = normalizeDate(date)
+      return day >= normalizeDate(from) && day <= normalizeDate(to);
     },
   },
 ];

@@ -25,14 +25,19 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { DateRange } from "react-day-picker";
 import ExportExcelButton from "@/components/export-button";
-import { IRecords } from "@/app/page";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { IRecords } from "@/types/record";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData extends IRecords, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData extends IRecords, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const [globalFilter, setGlobalFilter] = useState<string>("");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
@@ -47,7 +52,7 @@ export function DataTable<TData extends IRecords, TValue>({ columns, data }: Dat
     onColumnFiltersChange: setColumnFilters,
     state: {
       globalFilter,
-      columnFilters
+      columnFilters,
     },
     globalFilterFn: (row, columnId, filterValue) => {
       const fullName = row.getValue("fullName") as string;
@@ -61,88 +66,104 @@ export function DataTable<TData extends IRecords, TValue>({ columns, data }: Dat
   });
 
   useEffect(() => {
-    table.getColumn('date')?.setFilterValue(dateRange)
-  }, [dateRange, table])
+    table.getColumn("date")?.setFilterValue(dateRange);
+  }, [dateRange, table]);
 
   return (
-    <>
+    <Card>
       {/* ============== FILTERS ============= */}
-
-      <div className="flex flex-col gap-4 mb-8 lg:flex-row items-center justify-between py-4">
-        <Input
-          placeholder="Filter FullName or Phone Number..."
-          value={globalFilter ?? ""}
-          onChange={(event) => setGlobalFilter(event.target.value)}
-          className="max-w-sm py-6 px-4"
-        />
-        <ExportExcelButton filteredRecords={table.getFilteredRowModel().rows.map(row => row.original)}/>
-        <CalendarPopUp onChange={setDateRange} />
-      </div>
+      <CardHeader>
+        {/* Header with title, record count, and export button */}
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle>Form Records</CardTitle>
+            {/* Show filtered count vs total count */}
+            <CardDescription>
+              {table.getFilteredRowModel().rows.length} of {data.length} records
+            </CardDescription>
+          </div>
+          <ExportExcelButton
+            filteredRecords={table.getFilteredRowModel().rows.map((row) => row.original)}
+          />
+        </div>
+        <div className="flex flex-col gap-4 lg:flex-row items-center justify-between py-4">
+          <Input
+            placeholder="Filter FullName or Phone Number..."
+            value={globalFilter ?? ""}
+            onChange={(event) => setGlobalFilter(event.target.value)}
+            className=" py-5 px-4"
+          />
+          <CalendarPopUp onChange={setDateRange} />
+        </div>
+      </CardHeader>
 
       {/* ============ TANSTACK REACT TABLE =========== */}
 
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
+      <CardContent>
+        <div className="overflow-hidden rounded-md border">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    );
+                  })}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
 
-        {/* ========== PAGINATION ========== */}
+          {/* ========== PAGINATION ========== */}
 
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <span className="text-sm">
-            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-          </span>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
+          <div className="flex items-center justify-end space-x-2 py-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              <FaArrowLeft />
+            </Button>
+
+            <div className="flex w-[100px] items-center justify-center text-sm font-semibold">
+              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              <FaArrowRight />
+            </Button>
+          </div>
         </div>
-      </div>
-    </>
+      </CardContent>
+    </Card>
   );
 }

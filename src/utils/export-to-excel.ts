@@ -1,5 +1,5 @@
 // utils/exportToExcel.ts
-import { IRecords } from "@/app/page";
+import { IRecords } from "@/types/record";
 import * as XLSX from "xlsx";
 
 export function exportToExcel(records: IRecords[], fileName: string) {

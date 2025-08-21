@@ -24,7 +24,7 @@ export default function CalendarPopUp({ onChange }: ICalenderPopUp) {
 
   return (
     <Popover>
-      <PopoverTrigger className="border w-full py-3 px-6 flex items-center gap-x-3 rounded-md cursor-pointer shadow-sm lg:max-w-xs">
+      <PopoverTrigger className="border w-full py-2 px-6 flex items-center justify-center gap-x-3 rounded-md cursor-pointer shadow-sm lg:max-w-56">
         <CiCalendarDate size={20} />
         {dateRange?.from ? (
           dateRange.to ? (
